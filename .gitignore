@@ -1,0 +1,5 @@
+# ONNX files
+*.ONNX
+
+# Output directories
+output*/

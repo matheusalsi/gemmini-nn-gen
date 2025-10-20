@@ -2,4 +2,6 @@
 *.onnx
 
 # Output directories
-out*/
+out/
+resnet50/
+alexnet/

@@ -223,7 +223,7 @@ def export_gemmini(onnx_path, out_dir='out', precision=8, batch_size=4):
     c_lines.append('    uint64_t conv_cycles = 0, matmul_cycles = 0;\n\n')
     c_lines.append('    // model execution\n')
 
-    layer_idx = 0
+    layer_idx = 1
     tensor_buffer = {}
     # map tensor name -> (out_channels, out_h, out_w)
     output_dims = {}
@@ -338,6 +338,9 @@ def export_gemmini(onnx_path, out_dir='out', precision=8, batch_size=4):
             # out buffer as 2D: [n_patches][out_ch]
             h_lines.append(f"static elem_t {lname}_out[{n_patches}][{out_ch}] row_align(1);\n")
 
+            # adiciona quebra de linha extra
+            h_lines.append("\n")
+
             # map tensor name -> buffer name
             if node.output:
                 tensor_buffer[node.output[0]] = f"{lname}_out"
@@ -402,6 +405,9 @@ def export_gemmini(onnx_path, out_dir='out', precision=8, batch_size=4):
 
             # out buffer
             h_lines.append(f"static elem_t {lname}_out[{out_dim}] row_align(1);\n")
+
+            # adiciona quebra de linha extra
+            h_lines.append("\n")
 
             if node.output:
                 tensor_buffer[node.output[0]] = f"{lname}_out"
